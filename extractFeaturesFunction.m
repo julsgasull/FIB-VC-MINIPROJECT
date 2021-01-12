@@ -1,4 +1,6 @@
 function [features,featureMetrics] = extractFeaturesFunction(img)
+    
+
     [redHistogram, blueHistogram] = colorHistogramFunction(img);
     
     hog = hogFunction(img);
