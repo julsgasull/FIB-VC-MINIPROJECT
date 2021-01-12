@@ -4,5 +4,5 @@ function data = customReadDatastoreImage(filename)
     c = onCleanup(@() warning(onState)); 
     data = imread(filename); % added lines: 
     data = data(:,:,min(1:3, end)); 
-    data = imresize(data,[224 224]);
+    data = imresize(data,[100 100]);
 end
