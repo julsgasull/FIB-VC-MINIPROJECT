@@ -1,12 +1,15 @@
 function features = processar_imatge(image)
 
+    image = image(:,:,min(1:3, end)); 
+    image = imresize(image,[100 100]);
+    
     features = [];
     % Enlarge figure to full screen.
     set(gcf, 'units','normalized','outerposition',[0 0 1 1]);
     [rows, columns, numberOfColorBands] = size(image);
 
-    blockSizeR = rows/3;           % Rows in block.
-    blockSizeC = columns/3;     % Columns in block.
+    blockSizeR = rows/2;           % Rows in block.
+    blockSizeC = columns/2;     % Columns in block.
 
     % Figure out the size of each block in rows.
     % Most will be blockSizeR but there may be a remainder amount of less than that.
@@ -36,6 +39,16 @@ function features = processar_imatge(image)
             rgbBlock = ca{r,c};
             [histRed, histBlue] = colorHistogramFunction(rgbBlock);
             features =  [features, histRed, histBlue];
+            
+            imshow(rgbBlock); % Could call imshow(ca{r,c}) if you wanted to.
+            [rowsB, columnsB, numberOfColorBandsB] = size(rgbBlock);
+            % Make the caption the block number.
+            caption = sprintf('Block #%d of %d\n%d rows by %d columns', ...
+            plotIndex, numPlotsR*numPlotsC, rowsB, columnsB);
+            title(caption);
+            drawnow;
+            
+            % Increment the subplot to the next location.
             plotIndex = plotIndex + 1;
         end
     end

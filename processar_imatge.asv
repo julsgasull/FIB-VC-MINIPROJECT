@@ -1,10 +1,6 @@
 function features = processar_imatge(image)
-    
-    % hog
-    hog = hogFunction(image);
 
-    histogramRed = [];
-    histogramBlue = [];
+    features = [];
     % Enlarge figure to full screen.
     set(gcf, 'units','normalized','outerposition',[0 0 1 1]);
     [rows, columns, numberOfColorBands] = size(image);
@@ -39,19 +35,24 @@ function features = processar_imatge(image)
             % just for tutorial purposes.
             rgbBlock = ca{r,c};
             [histRed, histBlue] = colorHistogramFunction(rgbBlock);
-            histogramRed =  [histogramRed, histRed];
-            histogramBlue = [histogramBlue, histBlue];
+            features =  [features, histRed, histBlue];
+            
+            imshow(rgbBlock); % Could call imshow(ca{r,c}) if you wanted to.
+            [rowsB columnsB numberOfColorBandsB] = size(rgbBlock);
+            % Make the caption the block number.
+            caption = sprintf('Block #%d of %d\n%d rows by %d columns', ...
+            plotIndex, numPlotsR*numPlotsC, rowsB, columnsB);
+        title(caption);
+            
             plotIndex = plotIndex + 1;
         end
     end
 
     
-    histogramRed
-    histogramBlue
+    % hog
+    hog = hogFunction(image);
     
-% 
-%     % return features
-%     features = [histRed1, histBlue1, histRed2, histBlue2, hog];
-
+    % return features
+    features = [features, hog];
 end
 
