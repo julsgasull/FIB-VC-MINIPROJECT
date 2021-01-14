@@ -1,5 +1,5 @@
 % Extract hog histogram of an image
-function hog = hogFunction(img)
+function hog = hogFunction(image)
     % Extract HOG Features
-    [hog, ~] = extractHOGFeatures(img);
+    [hog, ~] = extractHOGFeatures(image);
 end
