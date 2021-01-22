@@ -1,2 +1,8 @@
 .DS_STORE
 images/
+
+fineKNN.mat
+
+linearSVM.mat
+
+mediumKNN.mat
